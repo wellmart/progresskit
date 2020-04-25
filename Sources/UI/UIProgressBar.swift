@@ -53,12 +53,12 @@ public final class UIProgressBar: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
+        loadView()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        commonInit()
+        loadView()
     }
     
     public override func didMoveToWindow() {
@@ -74,7 +74,7 @@ public final class UIProgressBar: UIView {
         }
     }
     
-    private func commonInit() {
+    private func loadView() {
         let appearance = UIProgressBar.appearance
         backgroundColor = appearance?.progressBarSecondaryColor
         
