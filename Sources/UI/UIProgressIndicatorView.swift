@@ -64,10 +64,6 @@ public final class UIProgressIndicatorView: UIView {
     public override func didMoveToWindow() {
         super.didMoveToWindow()
         
-        guard window != nil, case .infinite = value else {
-            return
-        }
-        
         DispatchQueue.main.async {
             self.infiniteLoop()
         }
@@ -109,7 +105,7 @@ public final class UIProgressIndicatorView: UIView {
     }
     
     private func infiniteLoop() {
-        guard case .infinite = value else {
+        guard window != nil, case .infinite = value else {
             return
         }
         
@@ -126,20 +122,16 @@ public final class UIProgressIndicatorView: UIView {
             UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration, animations: {
                 self.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.15, height: bounds.height)
             })
-        }) { completed in
+        }) { [weak self] completed in
             guard completed else {
                 return
             }
             
-            self.infiniteLoop()
+            self?.infiniteLoop()
         }
     }
     
     private func willEnterForeground(notification: Notification) {
-        guard case .infinite = value else {
-            return
-        }
-        
         DispatchQueue.main.async {
             self.infiniteLoop()
         }
