@@ -120,11 +120,11 @@ public final class UIProgressIndicatorView: UIView {
         
         UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: halfDuration, animations: {
-                self.indicatorView.frame = CGRect(x: 0, y: 0, width: bounds.width * 0.75, height: bounds.height)
+                self.indicatorView.frame = CGRect(x: 0, y: 0, width: bounds.width * 0.65, height: bounds.height)
             })
             
             UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration, animations: {
-                self.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.25, height: bounds.height)
+                self.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.15, height: bounds.height)
             })
         }) { completed in
             guard completed else {
