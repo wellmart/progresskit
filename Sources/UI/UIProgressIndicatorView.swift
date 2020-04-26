@@ -26,8 +26,8 @@ import UIKit
 import Adrenaline
 import CodeLayout
 
-public final class UIProgressBar: UIView {
-    public static var appearance: UIProgressBarAppearance?
+public final class UIProgressIndicatorView: UIView {
+    public static var appearance: UIProgressIndicatorAppearance?
     
     @frozen
     public enum Value {
@@ -44,7 +44,7 @@ public final class UIProgressBar: UIView {
     private weak var indicatorView: UIView!
     
     private var duration: TimeInterval {
-        return 1
+        return 0.75
     }
     
     private var initialFrame: CGRect {
@@ -61,29 +61,17 @@ public final class UIProgressBar: UIView {
         loadView()
     }
     
-    public override func didMoveToWindow() {
-        super.didMoveToWindow()
-        
-        guard window != nil, case .infinite = value else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.resetIndicator()
-            self.infiniteLoop()
-        }
-    }
-    
     private func loadView() {
-        let appearance = UIProgressBar.appearance
-        backgroundColor = appearance?.progressBarSecondaryColor
+        let appearance = UIProgressIndicatorView.appearance
+        backgroundColor = appearance?.progressIndicatorSecondaryColor
         
         indicatorView = addSubview(UIView(frame: initialFrame)) {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            $0.backgroundColor = appearance?.progressBarPrimaryColor
+            $0.backgroundColor = appearance?.progressIndicatorPrimaryColor
         }
         
         resetIndicator()
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: willEnterForeground)
     }
     
     private func resetIndicator() {
@@ -121,17 +109,27 @@ public final class UIProgressBar: UIView {
         
         UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: halfDuration, animations: {
-                self.indicatorView.frame = CGRect(x: 0, y: 0, width: bounds.width * 0.7, height: bounds.height)
+                self.indicatorView.frame = CGRect(x: 0, y: 0, width: bounds.width * 0.75, height: bounds.height)
             })
             
             UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration, animations: {
-                self.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.3, height: bounds.height)
+                self.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.25, height: bounds.height)
             })
         }) { completed in
             guard completed else {
                 return
             }
             
+            self.infiniteLoop()
+        }
+    }
+    
+    private func willEnterForeground(notification: Notification) {
+        guard case .infinite = value else {
+            return
+        }
+        
+        DispatchQueue.main.async {
             self.infiniteLoop()
         }
     }

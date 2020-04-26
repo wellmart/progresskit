@@ -24,7 +24,7 @@
 
 import UIKit
 
-public protocol UIProgressBarAppearance {
-    var progressBarPrimaryColor: UIColor { get }
-    var progressBarSecondaryColor: UIColor { get }
+public protocol UIProgressIndicatorAppearance {
+    var progressIndicatorPrimaryColor: UIColor { get }
+    var progressIndicatorSecondaryColor: UIColor { get }
 }
