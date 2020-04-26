@@ -44,7 +44,7 @@ public final class UIProgressIndicatorView: UIView {
     private weak var indicatorView: UIView!
     
     private var duration: TimeInterval {
-        return 0.75
+        return 1
     }
     
     private var initialFrame: CGRect {
@@ -59,6 +59,18 @@ public final class UIProgressIndicatorView: UIView {
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadView()
+    }
+    
+    public override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        guard window != nil, case .infinite = value else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.infiniteLoop()
+        }
     }
     
     private func loadView() {
@@ -92,7 +104,6 @@ public final class UIProgressIndicatorView: UIView {
                 return
             }
             
-            resetIndicator()
             infiniteLoop()
         }
     }
