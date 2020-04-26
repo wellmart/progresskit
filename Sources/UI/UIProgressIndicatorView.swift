@@ -91,7 +91,11 @@ public final class UIProgressIndicatorView: UIView {
     private func updateIndicator(newValue: Value) {
         switch newValue {
         case let .percentage(value):
-            UIView.animate(withDuration: duration, delay: 0, options: [.beginFromCurrentState], animations: {
+            UIView.animate(withDuration: duration, delay: 0, options: [.beginFromCurrentState], animations: { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
                 self.indicatorView.frame = CGRect(x: 0, y: 0, width: self.bounds.width * value, height: self.bounds.height)
             })
             
@@ -114,13 +118,13 @@ public final class UIProgressIndicatorView: UIView {
         
         resetIndicator()
         
-        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: {
+        UIView.animateKeyframes(withDuration: duration, delay: 0, animations: { [weak self] in
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: halfDuration, animations: {
-                self.indicatorView.frame = CGRect(x: 0, y: 0, width: bounds.width * 0.65, height: bounds.height)
+                self?.indicatorView.frame = CGRect(x: 0, y: 0, width: bounds.width * 0.65, height: bounds.height)
             })
             
             UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration, animations: {
-                self.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.15, height: bounds.height)
+                self?.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.15, height: bounds.height)
             })
         }) { [weak self] completed in
             guard completed else {
