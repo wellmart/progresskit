@@ -31,7 +31,6 @@ public final class UIProgressIndicatorView: UIView {
     
     public enum Value {
         case infinite
-        case percentage(value: CGFloat)
     }
     
     public var value: Value = .infinite {
@@ -89,15 +88,6 @@ public final class UIProgressIndicatorView: UIView {
     
     private func updateIndicator(newValue: Value) {
         switch newValue {
-        case let .percentage(value):
-            UIView.animate(withDuration: duration, delay: 0, options: [.beginFromCurrentState], animations: { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                
-                self.indicatorView.frame = CGRect(x: 0, y: 0, width: self.bounds.width * value, height: self.bounds.height)
-            })
-            
         case .infinite:
             if case .infinite = value {
                 return
