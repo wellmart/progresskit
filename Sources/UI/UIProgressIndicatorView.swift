@@ -39,11 +39,12 @@ public final class UIProgressIndicatorView: UIView {
         }
     }
     
-    private weak var indicatorView: UIView!
-    
-    private var duration: TimeInterval {
+    @inlinable
+    var duration: TimeInterval {
         return 1
     }
+    
+    private weak var indicatorView: UIView!
     
     private var initialFrame: CGRect {
         return CGRect(x: 0, y: 0, width: 0, height: bounds.height)
