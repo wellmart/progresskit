@@ -26,7 +26,7 @@ import UIKit
 import Adrenaline
 import CodeLayout
 
-public final class UIProgressIndicatorView: UIView {
+public final class UIProgressIndicatorView: UILoadableView {
     public static var appearance: UIProgressIndicatorAppearance?
     
     public enum Value {
@@ -39,8 +39,7 @@ public final class UIProgressIndicatorView: UIView {
         }
     }
     
-    @inlinable
-    var duration: TimeInterval {
+    private var duration: TimeInterval {
         return 1
     }
     
@@ -48,16 +47,6 @@ public final class UIProgressIndicatorView: UIView {
     
     private var initialFrame: CGRect {
         return CGRect(x: 0, y: 0, width: 0, height: bounds.height)
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        loadView()
-    }
-    
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        loadView()
     }
     
     public override func didMoveToWindow() {
@@ -68,7 +57,7 @@ public final class UIProgressIndicatorView: UIView {
         }
     }
     
-    private func loadView() {
+    public override func loadView() {
         let appearance = UIProgressIndicatorView.appearance
         backgroundColor = appearance?.progressIndicatorSecondaryColor
         
