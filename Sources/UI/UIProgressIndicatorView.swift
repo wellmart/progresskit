@@ -40,7 +40,7 @@ public final class UIProgressIndicatorView: UILoadableView {
     }
     
     private var duration: TimeInterval {
-        return 1
+        return 0.85
     }
     
     private weak var indicatorView: UIView!
