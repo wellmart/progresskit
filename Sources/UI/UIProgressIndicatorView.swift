@@ -92,18 +92,20 @@ public final class UIProgressIndicatorView: UILoadableView {
             return
         }
         
-        let bounds = self.bounds
         let halfDuration = duration / 2
+        
+        let width = bounds.width
+        let height = bounds.height
         
         resetIndicator()
         
         UIView.animateKeyframes(withDuration: duration, delay: 0, animations: { [weak self] in
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: halfDuration, animations: {
-                self?.indicatorView.frame = CGRect(x: 0, y: 0, width: bounds.width * 0.65, height: bounds.height)
+                self?.indicatorView.frame = CGRect(x: 0, y: 0, width: width * 0.65, height: height)
             })
             
             UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration, animations: {
-                self?.indicatorView.frame = CGRect(x: bounds.width, y: 0, width: bounds.width * 0.15, height: bounds.height)
+                self?.indicatorView.frame = CGRect(x: width, y: 0, width: width * 0.15, height: height)
             })
         }) { [weak self] completed in
             guard completed else {
