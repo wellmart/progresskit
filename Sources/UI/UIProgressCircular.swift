@@ -44,31 +44,17 @@ public final class UIProgressCircular: UILoadableView {
         return UIProgress.appearance?.progressCircularLineWidth ?? 0
     }
     
-    private var startAngle: CGFloat {
-        return -CGFloat.pi / 2
-    }
-    
-    private var endAngle: CGFloat {
-        return CGFloat.pi * 1.5
-    }
-    
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        let area = min(frame.width, frame.height)
-        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        let path = UIBezierPath(arcCenter: center,
+                                radius: (min(frame.width, frame.height) - lineWidth) / 2,
+                                startAngle: -CGFloat.pi / 2,
+                                endAngle: CGFloat.pi * 1.5,
+                                clockwise: true)
         
-        shadowLayer.path = UIBezierPath(arcCenter: center,
-                                        radius: (area - lineWidth) / 2,
-                                        startAngle: startAngle,
-                                        endAngle: endAngle,
-                                        clockwise: true).cgPath
-        
-        valueLayer.path = UIBezierPath(arcCenter: center,
-                                       radius: (area - (lineWidth * 3)) / 2,
-                                       startAngle: startAngle,
-                                       endAngle: endAngle,
-                                       clockwise: true).cgPath
+        shadowLayer.path = path.cgPath
+        valueLayer.path = path.cgPath
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -85,7 +71,7 @@ public final class UIProgressCircular: UILoadableView {
         shadowLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor
             $0.lineCap = .square
-            $0.lineWidth = lineWidth
+            $0.lineWidth = lineWidth / 2
             $0.strokeColor = appearance?.progressSecondaryColor.cgColor
         }
         
