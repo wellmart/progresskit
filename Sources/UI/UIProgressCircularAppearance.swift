@@ -1,5 +1,3 @@
-// swift-tools-version:5.1
-
 //
 //  ProgressKit
 //
@@ -24,31 +22,10 @@
 //  THE SOFTWARE.
 //
 
-import PackageDescription
+import UIKit
 
-let package = Package(
-    name: "ProgressKit",
-    platforms: [
-        .iOS(.v9)
-    ],
-    products: [
-        .library(
-            name: "ProgressKit",
-            type: .static,
-            targets: ["ProgressKit"])
-    ],
-    dependencies: [
-        .package(url: "https://github.com/wellmart/adrenaline.git", .branch("master")),
-        .package(url: "https://github.com/wellmart/codelayout.git", .branch("master"))
-    ],
-    targets: [
-        .target(
-            name: "ProgressKit",
-            dependencies: [
-                "Adrenaline",
-                "CodeLayout"
-            ],
-            path: "Sources")
-    ],
-    swiftLanguageVersions: [.v5]
-)
+public protocol UIProgressCircularAppearance {
+    var progressCircularLineWidth: CGFloat { get }
+    var progressCircularPrimaryColor: UIColor { get }
+    var progressCircularSecondaryColor: UIColor { get }
+}
