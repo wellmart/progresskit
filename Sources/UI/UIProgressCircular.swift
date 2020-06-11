@@ -44,21 +44,28 @@ public final class UIProgressCircular: UILoadableView {
         return UIProgress.appearance?.progressCircularLineWidth ?? 0
     }
     
+    private var startAngle: CGFloat {
+        return -CGFloat.pi / 2
+    }
+    
+    private var endAngle: CGFloat {
+        return CGFloat.pi * 1.5
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         
+        let area = min(frame.width, frame.height)
         let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        let startAngle = -CGFloat.pi / 2
-        let endAngle = CGFloat.pi * 1.5
         
         shadowLayer.path = UIBezierPath(arcCenter: center,
-                                        radius: (frame.width - lineWidth) / 2,
+                                        radius: (area - lineWidth) / 2,
                                         startAngle: startAngle,
                                         endAngle: endAngle,
                                         clockwise: true).cgPath
         
         valueLayer.path = UIBezierPath(arcCenter: center,
-                                       radius: (frame.width - (lineWidth * 3)) / 2,
+                                       radius: (area - (lineWidth * 3)) / 2,
                                        startAngle: startAngle,
                                        endAngle: endAngle,
                                        clockwise: true).cgPath
