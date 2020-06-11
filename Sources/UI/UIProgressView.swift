@@ -26,8 +26,8 @@ import UIKit
 import Adrenaline
 import CodeLayout
 
-public final class UIProgressIndicatorView: UILoadableView {
-    public static var appearance: UIProgressIndicatorAppearance?
+public final class UIProgressView: UILoadableView {
+    public static var appearance: UIProgressAppearance?
     
     public enum Value {
         case infinite
@@ -58,12 +58,12 @@ public final class UIProgressIndicatorView: UILoadableView {
     }
     
     public override func loadView() {
-        let appearance = UIProgressIndicatorView.appearance
-        backgroundColor = appearance?.progressIndicatorSecondaryColor
+        let appearance = UIProgressView.appearance
+        backgroundColor = appearance?.progressSecondaryColor
         
         indicatorView = addSubview(UIView(frame: initialFrame)) {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            $0.backgroundColor = appearance?.progressIndicatorPrimaryColor
+            $0.backgroundColor = appearance?.progressPrimaryColor
         }
         
         resetIndicator()

@@ -24,7 +24,8 @@
 
 import UIKit
 
-public protocol UIProgressIndicatorAppearance {
-    var progressIndicatorPrimaryColor: UIColor { get }
-    var progressIndicatorSecondaryColor: UIColor { get }
+public protocol UIProgressAppearance {
+    var progressCircularLineWidth: CGFloat { get }
+    var progressPrimaryColor: UIColor { get }
+    var progressSecondaryColor: UIColor { get }
 }

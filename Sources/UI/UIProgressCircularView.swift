@@ -26,8 +26,6 @@ import UIKit
 import CodeLayout
 
 public final class UIProgressCircularView: UILoadableView {
-    public static var appearance: UIProgressCircularAppearance?
-    
     private weak var shadowLayer: CAShapeLayer!
     private weak var valueLayer: CAShapeLayer!
     private weak var valueLabel: UILabel!
@@ -43,17 +41,45 @@ public final class UIProgressCircularView: UILoadableView {
     }
     
     private var lineWidth: CGFloat {
-        return UIProgressCircularView.appearance?.progressCircularLineWidth ?? 0
+        return UIProgressView.appearance?.progressCircularLineWidth ?? 0
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        let startAngle = -CGFloat.pi / 2
+        let endAngle = CGFloat.pi * 1.5
+        
+        shadowLayer.path = UIBezierPath(arcCenter: center,
+                                        radius: (frame.width - lineWidth) / 2,
+                                        startAngle: startAngle,
+                                        endAngle: endAngle,
+                                        clockwise: true).cgPath
+        
+        valueLayer.path = UIBezierPath(arcCenter: center,
+                                       radius: (frame.width - (lineWidth * 2)) / 2,
+                                       startAngle: startAngle,
+                                       endAngle: endAngle,
+                                       clockwise: true).cgPath
+    }
+    
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        let appearance = UIProgressView.appearance
+        
+        shadowLayer.strokeColor = appearance?.progressSecondaryColor.cgColor
+        valueLayer.strokeColor = appearance?.progressPrimaryColor.cgColor
     }
     
     public override func loadView() {
-        let appearance = UIProgressCircularView.appearance
+        let appearance = UIProgressView.appearance
         
         shadowLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor
             $0.lineCap = .square
             $0.lineWidth = lineWidth
-            $0.strokeColor = appearance?.progressCircularSecondaryColor.cgColor
+            $0.strokeColor = appearance?.progressSecondaryColor.cgColor
         }
         
         valueLayer = addSublayer(CAShapeLayer.self) {
@@ -61,21 +87,12 @@ public final class UIProgressCircularView: UILoadableView {
             $0.lineCap = .square
             $0.lineWidth = lineWidth
             $0.strokeEnd = 0
-            $0.strokeColor = appearance?.progressCircularPrimaryColor.cgColor
+            $0.strokeColor = appearance?.progressPrimaryColor.cgColor
         }
         
         valueLabel = addSubview(UILabel.self) {
             $0.anchor(centerX: 0)
             $0.anchor(centerY: 0)
         }
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let path = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2), radius: (frame.width - lineWidth) / 2, startAngle: -.pi / 2, endAngle: .pi * 1.5, clockwise: true)
-        
-        shadowLayer.path = path.cgPath
-        valueLayer.path = path.cgPath
     }
 }
