@@ -25,7 +25,7 @@
 import UIKit
 import CodeLayout
 
-public final class UIProgressCircularView: UILoadableView {
+public final class UIProgressCircular: UILoadableView {
     private weak var shadowLayer: CAShapeLayer!
     private weak var valueLayer: CAShapeLayer!
     private weak var valueLabel: UILabel!
@@ -41,7 +41,7 @@ public final class UIProgressCircularView: UILoadableView {
     }
     
     private var lineWidth: CGFloat {
-        return UIProgressView.appearance?.progressCircularLineWidth ?? 0
+        return UIProgress.appearance?.progressCircularLineWidth ?? 0
     }
     
     public override func layoutSubviews() {
@@ -66,14 +66,14 @@ public final class UIProgressCircularView: UILoadableView {
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        let appearance = UIProgressView.appearance
+        let appearance = UIProgress.appearance
         
         shadowLayer.strokeColor = appearance?.progressSecondaryColor.cgColor
         valueLayer.strokeColor = appearance?.progressPrimaryColor.cgColor
     }
     
     public override func loadView() {
-        let appearance = UIProgressView.appearance
+        let appearance = UIProgress.appearance
         
         shadowLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor

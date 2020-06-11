@@ -26,7 +26,7 @@ import UIKit
 import Adrenaline
 import CodeLayout
 
-public final class UIProgressView: UILoadableView {
+public final class UIProgress: UILoadableView {
     public static var appearance: UIProgressAppearance?
     
     public enum Value {
@@ -35,7 +35,7 @@ public final class UIProgressView: UILoadableView {
     
     public var value: Value = .infinite {
         willSet {
-            updateIndicator(newValue: newValue)
+            updateValue(newValue: newValue)
         }
     }
     
@@ -43,7 +43,7 @@ public final class UIProgressView: UILoadableView {
         return 0.85
     }
     
-    private weak var indicatorView: UIView!
+    private weak var valueView: UIView!
     
     private var initialFrame: CGRect {
         return CGRect(x: 0, y: 0, width: 0, height: bounds.height)
@@ -58,25 +58,25 @@ public final class UIProgressView: UILoadableView {
     }
     
     public override func loadView() {
-        let appearance = UIProgressView.appearance
+        let appearance = UIProgress.appearance
         backgroundColor = appearance?.progressSecondaryColor
         
-        indicatorView = addSubview(UIView(frame: initialFrame)) {
+        valueView = addSubview(UIView(frame: initialFrame)) {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             $0.backgroundColor = appearance?.progressPrimaryColor
         }
         
-        resetIndicator()
+        resetValue()
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: willEnterForeground)
     }
     
-    private func resetIndicator() {
-        indicatorView.layer.removeAllAnimations()
-        indicatorView.frame = initialFrame
-        indicatorView.layoutIfNeeded()
+    private func resetValue() {
+        valueView.layer.removeAllAnimations()
+        valueView.frame = initialFrame
+        valueView.layoutIfNeeded()
     }
     
-    private func updateIndicator(newValue: Value) {
+    private func updateValue(newValue: Value) {
         switch newValue {
         case .infinite:
             if case .infinite = value {
@@ -93,19 +93,18 @@ public final class UIProgressView: UILoadableView {
         }
         
         let halfDuration = duration / 2
-        
         let width = bounds.width
         let height = bounds.height
         
-        resetIndicator()
+        resetValue()
         
         UIView.animateKeyframes(withDuration: duration, delay: 0, animations: { [weak self] in
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: halfDuration, animations: {
-                self?.indicatorView.frame = CGRect(x: 0, y: 0, width: width * 0.65, height: height)
+                self?.valueView.frame = CGRect(x: 0, y: 0, width: width * 0.65, height: height)
             })
             
             UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration, animations: {
-                self?.indicatorView.frame = CGRect(x: width, y: 0, width: width * 0.15, height: height)
+                self?.valueView.frame = CGRect(x: width, y: 0, width: width * 0.15, height: height)
             })
         }) { [weak self] completed in
             guard completed else {
