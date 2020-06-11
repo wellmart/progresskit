@@ -58,12 +58,9 @@ public final class UIProgress: UILoadableView {
     }
     
     public override func loadView() {
-        let appearance = UIProgress.appearance
-        backgroundColor = appearance?.progressSecondaryColor
-        
         valueView = addSubview(UIView(frame: initialFrame)) {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            $0.backgroundColor = appearance?.progressPrimaryColor
+            $0.backgroundColor = UIProgress.appearance?.progressPrimaryColor
         }
         
         resetValue()
