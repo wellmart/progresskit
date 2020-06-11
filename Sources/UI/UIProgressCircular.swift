@@ -47,21 +47,14 @@ public final class UIProgressCircular: UILoadableView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        let startAngle = -CGFloat.pi / 2
-        let endAngle = CGFloat.pi * 1.5
+        let path = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2),
+                                radius: (frame.width - lineWidth) / 2,
+                                startAngle: -CGFloat.pi / 2,
+                                endAngle: CGFloat.pi * 1.5,
+                                clockwise: true)
         
-        shadowLayer.path = UIBezierPath(arcCenter: center,
-                                        radius: (frame.width - lineWidth) / 2,
-                                        startAngle: startAngle,
-                                        endAngle: endAngle,
-                                        clockwise: true).cgPath
-        
-        valueLayer.path = UIBezierPath(arcCenter: center,
-                                       radius: (frame.width - (lineWidth * 2)) / 2,
-                                       startAngle: startAngle,
-                                       endAngle: endAngle,
-                                       clockwise: true).cgPath
+        shadowLayer.path = path.cgPath
+        valueLayer.path = path.cgPath
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
