@@ -58,7 +58,7 @@ public final class UIProgressCircular: UILoadableView {
                                         clockwise: true).cgPath
         
         valueLayer.path = UIBezierPath(arcCenter: center,
-                                       radius: (frame.width - (lineWidth * 4)) / 2,
+                                       radius: (frame.width - (lineWidth * 3)) / 2,
                                        startAngle: startAngle,
                                        endAngle: endAngle,
                                        clockwise: true).cgPath
