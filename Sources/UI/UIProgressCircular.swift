@@ -40,15 +40,15 @@ public final class UIProgressCircular: UILoadableView {
         }
     }
     
-    private var lineWidth: CGFloat {
-        return UIProgress.appearance?.progressCircularLineWidth ?? 0
+    private var circularWidth: CGFloat {
+        return UIProgress.appearance?.progressCircularWidth ?? 0
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         
         let path = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2),
-                                radius: (min(frame.width, frame.height) - lineWidth) / 2,
+                                radius: (min(frame.width, frame.height) - circularWidth) / 2,
                                 startAngle: -CGFloat.pi / 2,
                                 endAngle: CGFloat.pi * 1.5,
                                 clockwise: true)
@@ -71,14 +71,14 @@ public final class UIProgressCircular: UILoadableView {
         shadowLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor
             $0.lineCap = .square
-            $0.lineWidth = lineWidth / 2
+            $0.lineWidth = (appearance?.progressCircularLineWidth ?? 2) / 2
             $0.strokeColor = appearance?.progressSecondaryColor.cgColor
         }
         
         valueLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor
             $0.lineCap = .square
-            $0.lineWidth = lineWidth
+            $0.lineWidth = circularWidth
             $0.strokeEnd = 0
             $0.strokeColor = appearance?.progressPrimaryColor.cgColor
         }
