@@ -40,15 +40,44 @@ public final class UIProgressCircular: UILoadableView {
         }
     }
     
-    private var circularWidth: CGFloat {
-        return UIProgress.appearance?.progressCircularWidth ?? 0
+    public override func loadView() {
+        guard let appearance = UIProgress.appearance else {
+            preconditionFailure("The appearance was not specified")
+        }
+        
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.shouldRasterize = true
+        
+        shadowLayer = addSublayer(CAShapeLayer.self) {
+            $0.fillColor = UIColor.clear.cgColor
+            $0.lineCap = .square
+            $0.lineWidth = appearance.progressCircularLineWidth * 2
+            $0.strokeColor = appearance.progressSecondaryColor.cgColor
+        }
+        
+        valueLayer = addSublayer(CAShapeLayer.self) {
+            $0.fillColor = UIColor.clear.cgColor
+            $0.lineCap = .square
+            $0.lineWidth = appearance.progressCircularWidth
+            $0.strokeEnd = 0
+            $0.strokeColor = appearance.progressPrimaryColor.cgColor
+        }
+        
+        valueLabel = addSubview(UILabel.self) {
+            $0.anchor(centerX: 0)
+            $0.anchor(centerY: 0)
+        }
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         
+        guard let appearance = UIProgress.appearance else {
+            preconditionFailure("The appearance was not specified")
+        }
+        
         let path = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2),
-                                radius: (min(frame.width, frame.height) - circularWidth) / 2,
+                                radius: (min(frame.width, frame.height) - appearance.progressCircularWidth) / 2,
                                 startAngle: -CGFloat.pi / 2,
                                 endAngle: CGFloat.pi * 1.5,
                                 clockwise: true)
@@ -59,33 +88,12 @@ public final class UIProgressCircular: UILoadableView {
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        let appearance = UIProgress.appearance
         
-        shadowLayer.strokeColor = appearance?.progressSecondaryColor.cgColor
-        valueLayer.strokeColor = appearance?.progressPrimaryColor.cgColor
-    }
-    
-    public override func loadView() {
-        let appearance = UIProgress.appearance
-        
-        shadowLayer = addSublayer(CAShapeLayer.self) {
-            $0.fillColor = UIColor.clear.cgColor
-            $0.lineCap = .square
-            $0.lineWidth = (appearance?.progressCircularLineWidth ?? 0) * 2
-            $0.strokeColor = appearance?.progressSecondaryColor.cgColor
+        guard let appearance = UIProgress.appearance else {
+            preconditionFailure("The appearance was not specified")
         }
         
-        valueLayer = addSublayer(CAShapeLayer.self) {
-            $0.fillColor = UIColor.clear.cgColor
-            $0.lineCap = .square
-            $0.lineWidth = circularWidth
-            $0.strokeEnd = 0
-            $0.strokeColor = appearance?.progressPrimaryColor.cgColor
-        }
-        
-        valueLabel = addSubview(UILabel.self) {
-            $0.anchor(centerX: 0)
-            $0.anchor(centerY: 0)
-        }
+        shadowLayer.strokeColor = appearance.progressSecondaryColor.cgColor
+        valueLayer.strokeColor = appearance.progressPrimaryColor.cgColor
     }
 }
