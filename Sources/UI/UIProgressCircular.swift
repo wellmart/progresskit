@@ -28,7 +28,17 @@ import CodeLayout
 public final class UIProgressCircular: UILoadableView {
     private weak var shadowLayer: CAShapeLayer!
     private weak var valueLayer: CAShapeLayer!
+    private weak var titleLabel: UILabel!
     private weak var valueLabel: UILabel!
+    
+    public var title: String? {
+        get {
+            return titleLabel?.text
+        }
+        set {
+            titleLabel.text = newValue
+        }
+    }
     
     public var value: Double {
         get {
@@ -65,7 +75,14 @@ public final class UIProgressCircular: UILoadableView {
         
         valueLabel = addSubview(UILabel.self) {
             $0.anchor(centerX: 0)
-            $0.anchor(centerY: 0)
+            $0.anchor(centerY: -appearance.progressCircularSpacing)
+        }
+        
+        titleLabel = addSubview(UILabel.self) {
+            $0.anchor(centerX: 0)
+            $0.anchor(centerY: appearance.progressCircularSpacing)
+            
+            $0.font = appearance.progressCircularTitleFont
         }
     }
     

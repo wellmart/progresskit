@@ -26,6 +26,8 @@ import UIKit
 
 public protocol UIProgressAppearance {
     var progressCircularLineWidth: CGFloat { get }
+    var progressCircularSpacing: CGFloat { get }
+    var progressCircularTitleFont: UIFont { get }
     var progressCircularWidth: CGFloat { get }
     var progressPrimaryColor: UIColor { get }
     var progressSecondaryColor: UIColor { get }
