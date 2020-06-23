@@ -95,13 +95,13 @@ public final class UIProgress: UILoadableView {
         resetValue()
         
         UIView.animateKeyframes(withDuration: duration, delay: 0, animations: { [weak self] in
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: halfDuration, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: halfDuration) {
                 self?.valueView.frame = CGRect(x: 0, y: 0, width: width * 0.65, height: height)
-            })
+            }
             
-            UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration, animations: {
+            UIView.addKeyframe(withRelativeStartTime: halfDuration, relativeDuration: halfDuration) {
                 self?.valueView.frame = CGRect(x: width, y: 0, width: width * 0.15, height: height)
-            })
+            }
         }) { [weak self] completed in
             guard completed else {
                 return
