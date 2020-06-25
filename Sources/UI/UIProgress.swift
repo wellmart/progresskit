@@ -63,7 +63,7 @@ public final class UIProgress: UILoadableView {
         }
         
         resetValue()
-        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: willEnterForeground)
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     private func resetValue() {
@@ -111,9 +111,10 @@ public final class UIProgress: UILoadableView {
         }
     }
     
+    @objc
     private func willEnterForeground(notification: Notification) {
-        DispatchQueue.main.async {
-            self.infiniteLoop()
+        DispatchQueue.main.async { [weak self] in
+            self?.infiniteLoop()
         }
     }
 }
