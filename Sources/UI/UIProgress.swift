@@ -46,7 +46,7 @@ public final class UIProgress: UILoadableView {
     private weak var valueView: UIView!
     
     private var initialFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: 0, height: bounds.height)
+        return CGRect(x: 0, y: 0, width: 0, height: frame.height)
     }
     
     public override func didMoveToWindow() {
@@ -90,8 +90,8 @@ public final class UIProgress: UILoadableView {
         }
         
         let halfDuration = duration / 2
-        let width = bounds.width
-        let height = bounds.height
+        let width = frame.width
+        let height = frame.height
         
         resetValue()
         
