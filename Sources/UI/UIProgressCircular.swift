@@ -84,6 +84,10 @@ public final class UIProgressCircular: UILoadableView {
             
             $0.font = appearance.progressCircularTitleFont
         }
+        
+        if !UIApplication.shared.leftToRightLayoutDirection {
+            titleLabel.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
     }
     
     public override func layoutSubviews() {
