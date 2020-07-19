@@ -86,6 +86,7 @@ public final class UIProgressCircular: UILoadableView {
         }
         
         if !UIApplication.shared.leftToRightLayoutDirection {
+            valueLabel.transform = CGAffineTransform(scaleX: -1, y: 1)
             titleLabel.transform = CGAffineTransform(scaleX: -1, y: 1)
         }
     }
