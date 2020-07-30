@@ -104,7 +104,7 @@ public final class UIProgressCircular: UILoadableView {
                                 endAngle: CGFloat.pi * 1.5,
                                 clockwise: true)
         
-        path.lineCapStyle = .round
+        path.lineJoinStyle = .round
         
         shadowLayer.path = path.cgPath
         valueLayer.path = path.cgPath
