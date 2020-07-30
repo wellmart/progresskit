@@ -67,7 +67,7 @@ public final class UIProgressCircular: UILoadableView {
         
         valueLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor
-            $0.lineCap = .square
+            $0.lineCap = .round
             $0.lineWidth = appearance.progressCircularWidth
             $0.strokeEnd = 0
             $0.strokeColor = appearance.progressPrimaryColor.cgColor
@@ -103,8 +103,6 @@ public final class UIProgressCircular: UILoadableView {
                                 startAngle: -CGFloat.pi / 2,
                                 endAngle: CGFloat.pi * 1.5,
                                 clockwise: true)
-        
-        path.lineJoinStyle = .round
         
         shadowLayer.path = path.cgPath
         valueLayer.path = path.cgPath
