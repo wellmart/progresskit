@@ -60,14 +60,13 @@ public final class UIProgressCircular: UILoadableView {
         
         shadowLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor
-            $0.lineCap = .square
             $0.lineWidth = appearance.progressCircularWidth / 3
             $0.strokeColor = appearance.progressSecondaryColor.cgColor
         }
         
         valueLayer = addSublayer(CAShapeLayer.self) {
             $0.fillColor = UIColor.clear.cgColor
-            $0.lineCap = .round
+            $0.lineCap = .square
             $0.lineWidth = appearance.progressCircularWidth
             $0.strokeEnd = 0
             $0.strokeColor = appearance.progressPrimaryColor.cgColor
