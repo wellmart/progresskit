@@ -52,8 +52,8 @@ public final class UIProgress: UILoadableView {
     public override func didMoveToWindow() {
         super.didMoveToWindow()
         
-        DispatchQueue.main.async { [self] in
-            infiniteLoop()
+        DispatchQueue.main.async {
+            self.infiniteLoop()
         }
     }
     
