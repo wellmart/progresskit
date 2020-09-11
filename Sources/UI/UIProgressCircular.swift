@@ -99,8 +99,8 @@ public final class UIProgressCircular: UILoadableView {
         
         let path = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2),
                                 radius: (min(frame.width, frame.height) - appearance.progressCircularWidth) / 2,
-                                startAngle: -CGFloat.pi / 2,
-                                endAngle: CGFloat.pi * 1.5,
+                                startAngle: -.pi / 2,
+                                endAngle: .pi * 1.5,
                                 clockwise: true)
         
         shadowLayer.path = path.cgPath
