@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 
 //
 //  ProgressKit
@@ -38,8 +38,8 @@ let package = Package(
             targets: ["ProgressKit"])
     ],
     dependencies: [
-        .package(url: "https://github.com/wellmart/adrenaline.git", .branch("master")),
-        .package(url: "https://github.com/wellmart/codelayout.git", .branch("master"))
+        .package(name: "Adrenaline", url: "https://github.com/wellmart/adrenaline.git", .branch("master")),
+        .package(name: "CodeLayout", url: "https://github.com/wellmart/codelayout.git", .branch("master"))
     ],
     targets: [
         .target(
