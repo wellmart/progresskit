@@ -52,7 +52,7 @@ public final class UIProgressCircular: UILoadableView {
     
     public override func loadView() {
         guard let appearance = UIProgress.appearance else {
-            preconditionFailure("The appearance was not specified")
+            preconditionFailure("Appearance was not specified")
         }
         
         layer.rasterizationScale = UIScreen.main.scale
@@ -94,7 +94,7 @@ public final class UIProgressCircular: UILoadableView {
         super.layoutSubviews()
         
         guard let appearance = UIProgress.appearance else {
-            preconditionFailure("The appearance was not specified")
+            preconditionFailure("Appearance was not specified")
         }
         
         let path = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2),
@@ -111,7 +111,7 @@ public final class UIProgressCircular: UILoadableView {
         super.traitCollectionDidChange(previousTraitCollection)
         
         guard let appearance = UIProgress.appearance else {
-            preconditionFailure("The appearance was not specified")
+            preconditionFailure("Appearance was not specified")
         }
         
         shadowLayer.strokeColor = appearance.progressSecondaryColor.cgColor
