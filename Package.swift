@@ -29,7 +29,7 @@ import PackageDescription
 let package = Package(
     name: "ProgressKit",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v11)
     ],
     products: [
         .library(
