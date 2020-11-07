@@ -25,7 +25,7 @@
 import UIKit
 import CodeLayout
 
-public final class UIProgressCircular: UILoadableView {
+public final class UICircularProgress: UILoadableView {
     private weak var shadowLayer: CAShapeLayer!
     private weak var valueLayer: CAShapeLayer!
     private weak var titleLabel: UILabel!
