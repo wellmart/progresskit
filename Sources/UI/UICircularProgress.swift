@@ -68,8 +68,8 @@ public final class UICircularProgress: UILoadableView {
             $0.fillColor = UIColor.clear.cgColor
             $0.lineCap = .square
             $0.lineWidth = appearance.progressCircularWidth
-            $0.strokeEnd = 0
             $0.strokeColor = appearance.progressPrimaryColor.cgColor
+            $0.strokeEnd = 0
         }
         
         valueLabel = addSubview(UILabel.self) {
