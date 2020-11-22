@@ -97,8 +97,8 @@ public final class UICircularProgress: UILoadableView {
             preconditionFailure("Appearance was not specified")
         }
         
-        let radius = (min(frame.width, frame.height) - appearance.progressCircularWidth) / 2
-        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        let radius = (min(bounds.width, bounds.height) - appearance.progressCircularWidth) / 2
+        let center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: -.pi / 2, endAngle: .pi * 1.5, clockwise: true)
         
         shadowLayer.path = path.cgPath

@@ -45,8 +45,8 @@ public final class UIProgress: UILoadableView {
     
     private weak var valueView: UIView!
     
-    private var initialFrame: CGRect {
-        return CGRect(x: 0, y: 0, width: 0, height: frame.height)
+    private var initialBounds: CGRect {
+        return CGRect(x: 0, y: 0, width: 0, height: bounds.height)
     }
     
     public override func didMoveToWindow() {
@@ -58,7 +58,7 @@ public final class UIProgress: UILoadableView {
     }
     
     public override func loadView() {
-        valueView = addSubview(UIView(frame: initialFrame)) {
+        valueView = addSubview(UIView(frame: initialBounds)) {
             $0.backgroundColor = UIProgress.appearance?.progressPrimaryColor
         }
         
@@ -68,7 +68,7 @@ public final class UIProgress: UILoadableView {
     
     private func resetValue() {
         valueView.layer.removeAllAnimations()
-        valueView.frame = initialFrame
+        valueView.frame = initialBounds
         valueView.layoutIfNeeded()
     }
     
@@ -90,8 +90,8 @@ public final class UIProgress: UILoadableView {
         }
         
         let halfDuration = duration / 2
-        let width = frame.width
-        let height = frame.height
+        let width = bounds.width
+        let height = bounds.height
         
         resetValue()
         
